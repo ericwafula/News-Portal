@@ -15,6 +15,12 @@ public class EmployeeTest {
         assertEquals("Eric", eric.getName());
     }
 
+    @Test
+    public void position_instantiatesWithPosition_position() {
+        Employee eric = createEmployee1();
+        assertEquals("Senior", eric.getPosition());
+    }
+
     // HELPERS
     public Employee createEmployee1(){
         return new Employee("Eric", "Senior","Manage Junior Developers", "IT");

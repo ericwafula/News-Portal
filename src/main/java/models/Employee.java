@@ -12,4 +12,8 @@ public class Employee extends User{
         this.role = role;
         this.department = department;
     }
+
+    public String getPosition() {
+        return position;
+    }
 }
