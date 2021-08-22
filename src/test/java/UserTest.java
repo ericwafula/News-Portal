@@ -6,9 +6,18 @@ public class UserTest {
 
     @Test
     public void user_instantiatesCorrectly_true() {
-        User user = new User("Eric", "Manager","Manage day to day operations", "IT");
-        assertTrue(user instanceof User);
+        User eric = new User("Eric");
+        assertTrue(eric instanceof User);
     }
 
+    @Test
+    public void name_instantiatesWith_Name_true() {
+        User eric = createUser1();
+        assertEquals("Eric", eric.getName());
+    }
 
+    // HELPERS
+    public User createUser1(){
+        return new User("Eric");
+    }
 }
