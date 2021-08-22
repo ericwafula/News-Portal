@@ -21,6 +21,18 @@ public class EmployeeTest {
         assertEquals("Senior", eric.getPosition());
     }
 
+    @Test
+    public void role_instantiatesWithRole_role() {
+        Employee eric = createEmployee1();
+        assertEquals("Manage Junior Developers", eric.getRole());
+    }
+
+    @Test
+    public void department_instantiatesWithDepartment_department() {
+        Employee eric = createEmployee1();
+        assertEquals("IT", eric.getDepartment());
+    }
+
     // HELPERS
     public Employee createEmployee1(){
         return new Employee("Eric", "Senior","Manage Junior Developers", "IT");

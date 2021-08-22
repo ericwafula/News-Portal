@@ -16,4 +16,14 @@ public class Employee extends User{
     public String getPosition() {
         return position;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+
 }
