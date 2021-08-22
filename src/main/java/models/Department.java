@@ -20,6 +20,22 @@ public class Department {
         return description;
     }
 
+    public int getEmployee_count() {
+        return employee_count;
+    }
+
+    public void setEmployee_count(int employee_count) {
+        this.employee_count = employee_count;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

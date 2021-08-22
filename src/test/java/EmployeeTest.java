@@ -34,6 +34,13 @@ public class EmployeeTest {
     }
 
     @Test
+    public void name_setsEmployeeName_department() {
+        Employee eric = createEmployee1();
+        eric.setName("Brian");
+        assertEquals("Brian", eric.getName());
+    }
+
+    @Test
     public void employee_nameAndPositionAreTheSame() {
         Employee employee1 = createEmployee1();
         Employee employee2 = createEmployee1();
