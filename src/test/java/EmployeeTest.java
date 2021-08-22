@@ -8,4 +8,15 @@ public class EmployeeTest {
         Employee eric = new Employee("Eric", "Senior","Manage Junior Developers", "IT");
         assertTrue(eric instanceof Employee);
     }
+
+    @Test
+    public void name_instantiatesWithName_name() {
+        Employee eric = createEmployee1();
+        assertEquals("Eric", eric.getName());
+    }
+
+    // HELPERS
+    public Employee createEmployee1(){
+        return new Employee("Eric", "Senior","Manage Junior Developers", "IT");
+    }
 }
