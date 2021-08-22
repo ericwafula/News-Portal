@@ -1,3 +1,5 @@
+package models;
+
 import models.*;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -5,7 +7,7 @@ import static org.junit.Assert.*;
 public class EmployeeTest {
     @Test
     public void employee_instantiatesCorrectly_true() {
-        Employee eric = new Employee("Eric", "Senior","Manage Junior Developers", 1);
+        Employee eric = new Employee("Eric", "Senior","Manage Junior Developers", "IT");
         assertTrue(eric instanceof Employee);
     }
 
@@ -28,12 +30,6 @@ public class EmployeeTest {
     }
 
     @Test
-    public void department_instantiatesWithDepartment_department() {
-        Employee eric = createEmployee1();
-        assertEquals(1, eric.getDepartmentId());
-    }
-
-    @Test
     public void name_setsEmployeeName_department() {
         Employee eric = createEmployee1();
         eric.setName("Brian");
@@ -49,10 +45,10 @@ public class EmployeeTest {
 
     // HELPERS
     public Employee createEmployee1(){
-        return new Employee("Eric", "Senior","Manage Junior Developers", 1);
+        return new Employee("Eric", "Senior","Manage Junior Developers", "IT");
     }
 
     public Employee createEmployee2(){
-        return new Employee("Becky", "Senior","Manage Junior Developers", 1);
+        return new Employee("Becky", "Senior","Manage Junior Developers", "IT");
     }
 }

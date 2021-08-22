@@ -1,3 +1,5 @@
+package models;
+
 import models.*;
 import org.junit.*;
 import static org.junit.Assert.*;

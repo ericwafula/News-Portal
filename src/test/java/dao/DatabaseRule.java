@@ -1,3 +1,5 @@
+package dao;
+
 import db.DB;
 import org.junit.rules.ExternalResource;
 import org.sql2o.*;
