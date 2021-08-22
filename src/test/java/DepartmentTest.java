@@ -8,4 +8,15 @@ public class DepartmentTest {
         Department department1 = new Department("IT", "Focuses on IT related Stuff");
         assertTrue(department1 instanceof Department);
     }
+
+    @Test
+    public void name_instantiatesWithName_name() {
+        Department department1 = createDepartment();
+        assertEquals("IT", department1.getName());
+    }
+
+    // HELPERS
+    public Department createDepartment(){
+        return new Department("IT", "Focuses on IT related Stuff");
+    }
 }
