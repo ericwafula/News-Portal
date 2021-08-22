@@ -16,6 +16,13 @@ public class UserTest {
         assertEquals("Eric", eric.getName());
     }
 
+    @Test
+    public void name_createUser() {
+        User user = createUser1();
+        user.createUser("Dan");
+        assertEquals("Dan", user.getName());
+    }
+
     // HELPERS
     public User createUser1(){
         return new User("Eric");
