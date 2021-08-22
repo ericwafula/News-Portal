@@ -8,5 +8,8 @@ public class Employee extends User{
 
     public Employee(String name, String position, String role, String department) {
         super(name);
+        this.position = position;
+        this.role = role;
+        this.department = department;
     }
 }
