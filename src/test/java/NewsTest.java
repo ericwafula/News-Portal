@@ -55,6 +55,13 @@ public class NewsTest {
         assertEquals("I be getting Paper", news.getDescription());
     }
 
+    @Test
+    public void news_titleAndDescriptionAreTheSame_true() {
+        News news1 = createNews();
+        News news2 = createNews();
+        assertEquals(true, news1.equals(news2));
+    }
+
     public News createNews(){
         return new News("Get Money","I be getting Money");
     }
