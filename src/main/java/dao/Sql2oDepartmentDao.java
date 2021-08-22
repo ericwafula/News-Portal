@@ -1,5 +1,6 @@
 package dao;
 
+import db.DB;
 import models.*;
 import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
@@ -14,12 +15,31 @@ public class Sql2oDepartmentDao implements DepartmentDao {
 
     @Override
     public void add(Department department) {
-
+        try(Connection conn = DB.sql2o.open()){
+            String sql = "INSERT INTO departments (name, description, employee_count) VALUES (:name, :description, :employeeCount)";
+            int id = (int) conn.createQuery(sql, true)
+                    .bind(department)
+                    .addParameter("employee_count", department.getEmployee_count())
+                    .executeUpdate()
+                    .getKey();
+            department.setId(id);
+        } catch (Sql2oException ex){
+            System.out.println("Unable to add department" + ex);
+        }
     }
 
     @Override
     public void addEmployeeToDepartment(Department department, Employee employee) {
-
+        try(Connection conn = DB.sql2o.open()){
+            String sql = "INSERT INTO departments_users(deptid, userid) VALUES (:departmentId, :employeeId)";
+            conn.createQuery(sql)
+                    .addParameter("departmentId", department.getId())
+                    .addParameter("employeeId", employee.getId())
+                    .executeUpdate();
+            employee.setDepartment(department.getName());
+        } catch (Sql2oException ex){
+            System.out.println("Unable to add into department" + ex);
+        }
     }
 
     @Override
