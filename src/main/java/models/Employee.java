@@ -3,14 +3,15 @@ package models;
 public class Employee extends User{
     private String position;
     private String role;
-    private String department;
     private int id;
+    private int departmentId;
+//    private String department;
 
-    public Employee(String name, String position, String role, String department) {
+    public Employee(String name, String position, String role, int departmentId) {
         super(name);
         this.position = position;
         this.role = role;
-        this.department = department;
+        this.departmentId = departmentId;
     }
 
     public String getPosition() {
@@ -21,9 +22,7 @@ public class Employee extends User{
         return role;
     }
 
-    public String getDepartment() {
-        return department;
+    public int getDepartmentId() {
+        return departmentId;
     }
-
-
 }

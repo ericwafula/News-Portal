@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 public class EmployeeTest {
     @Test
     public void employee_instantiatesCorrectly_true() {
-        Employee eric = new Employee("Eric", "Senior","Manage Junior Developers", "IT");
+        Employee eric = new Employee("Eric", "Senior","Manage Junior Developers", 1);
         assertTrue(eric instanceof Employee);
     }
 
@@ -30,11 +30,11 @@ public class EmployeeTest {
     @Test
     public void department_instantiatesWithDepartment_department() {
         Employee eric = createEmployee1();
-        assertEquals("IT", eric.getDepartment());
+        assertEquals(1, eric.getDepartmentId());
     }
 
     // HELPERS
     public Employee createEmployee1(){
-        return new Employee("Eric", "Senior","Manage Junior Developers", "IT");
+        return new Employee("Eric", "Senior","Manage Junior Developers", 1);
     }
 }
