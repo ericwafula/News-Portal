@@ -28,6 +28,8 @@ public class DepartmentTest {
         assertEquals(true, department1.equals(department2));
     }
 
+
+
     // HELPERS
     public Department createDepartment(){
         return new Department("IT", "Focuses on IT related Stuff");
