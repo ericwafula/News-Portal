@@ -25,4 +25,6 @@ public class Employee extends User{
     public int getDepartmentId() {
         return departmentId;
     }
+
+
 }

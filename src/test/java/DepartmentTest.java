@@ -21,6 +21,13 @@ public class DepartmentTest {
         assertEquals("Focuses on IT related Stuff", department.getDescription());
     }
 
+    @Test
+    public void department_nameAndDescriptionAreTheSame() {
+        Department department1 = createDepartment();
+        Department department2 = createDepartment();
+        assertEquals(true, department1.equals(department2));
+    }
+
     // HELPERS
     public Department createDepartment(){
         return new Department("IT", "Focuses on IT related Stuff");

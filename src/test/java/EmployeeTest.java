@@ -33,8 +33,19 @@ public class EmployeeTest {
         assertEquals(1, eric.getDepartmentId());
     }
 
+    @Test
+    public void employee_nameAndPositionAreTheSame() {
+        Employee employee1 = createEmployee1();
+        Employee employee2 = createEmployee1();
+        assertEquals(true, employee1.equals(employee2));
+    }
+
     // HELPERS
     public Employee createEmployee1(){
         return new Employee("Eric", "Senior","Manage Junior Developers", 1);
+    }
+
+    public Employee createEmployee2(){
+        return new Employee("Becky", "Senior","Manage Junior Developers", 1);
     }
 }
