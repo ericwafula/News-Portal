@@ -15,6 +15,12 @@ public class DepartmentTest {
         assertEquals("IT", department1.getName());
     }
 
+    @Test
+    public void description_instantiatesWithDescription_description() {
+        Department department = createDepartment();
+        assertEquals("Focuses on IT related Stuff", department.getDescription());
+    }
+
     // HELPERS
     public Department createDepartment(){
         return new Department("IT", "Focuses on IT related Stuff");
