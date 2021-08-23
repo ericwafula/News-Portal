@@ -19,7 +19,7 @@ public class Sql2oDepartmentDao implements DepartmentDao {
             String sql = "INSERT INTO departments (name, description, employee_count) VALUES (:name, :description, :employeeCount)";
             int id = (int) conn.createQuery(sql, true)
                     .bind(department)
-                    .addParameter("employee_count", department.getEmployee_count())
+                    .addParameter("employeeCount", department.getEmployee_count())
                     .executeUpdate()
                     .getKey();
             department.setId(id);
@@ -37,53 +37,139 @@ public class Sql2oDepartmentDao implements DepartmentDao {
                     .addParameter("employeeId", employee.getId())
                     .executeUpdate();
             employee.setDepartment(department.getName());
+            department.increaseEmployeeCount();
+            updateEmployeeCount(department);
         } catch (Sql2oException ex){
-            System.out.println("Unable to add into department" + ex);
+            System.out.println("Unable to add into department " + ex);
         }
     }
 
     @Override
     public Department findById(int id) {
-        return null;
+        try(Connection conn = DB.sql2o.open()){
+            String sql = "SELECT FROM departments WHERE id=:id";
+            return conn.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Department.class);
+        }
     }
 
     @Override
     public List<Department> allDepartments() {
-        return null;
+        try(Connection conn = DB.sql2o.open()){
+            String sql = "SELECT * FROM departments";
+            return conn.createQuery(sql)
+                    .executeAndFetch(Department.class);
+        }
     }
 
     @Override
     public List<Employee> allDepartmentEmployees(int departmentId) {
-        return null;
+        List<Employee> employees = new ArrayList<>();
+        String joinQuery = "SELECT userid FROM departments_users WHERE deptid=:departmentId";
+        try(Connection conn = DB.sql2o.open()){
+            List<Integer> employeeIds = conn.createQuery(joinQuery)
+                    .addParameter("departmentId", departmentId)
+                    .executeAndFetch(Integer.class);
+            for(Integer employeeId:employeeIds){
+                String sql = "SELECT FROM users WHERE id=:id";
+                employees.add(
+                        conn.createQuery(sql)
+                        .addParameter("id", employeeId)
+                        .executeAndFetchFirst(Employee.class)
+                );
+            }
+        } catch (Sql2oException ex){
+            System.out.println("Unable to get users from ids: " + ex);
+        }
+
+        return employees;
     }
 
     @Override
     public List<News> allDepartmentNews(int departmentId) {
-        return null;
+        List<News> news = new ArrayList<>();
+        String joinQuery = "SELECT newsid FROM departments_news WHERE deptid=:departmentId";
+        try(Connection conn = DB.sql2o.open()){
+            List<Integer> newsIds = conn.createQuery(joinQuery)
+                    .addParameter("departmentId", departmentId)
+                    .executeAndFetch(Integer.class);
+
+            for(Integer newsId:newsIds){
+                String sql = "SELECT * FROM news WHERE id=:id";
+                news.add(
+                        conn.createQuery(sql)
+                        .executeAndFetchFirst(News.class)
+                );
+            }
+        } catch (Sql2oException ex){
+            System.out.println("Unable to recover news articles" + ex);
+        }
+
+        return news;
     }
 
     @Override
     public void updateEmployeeCount(Department department) {
-
+        try(Connection conn = DB.sql2o.open()){
+            String sql = "UPDATE departments SET employee_count= :employeeCount WHERE id=:id";
+            conn.createQuery(sql)
+                    .addParameter("employeeCount", department.getEmployee_count())
+                    .addParameter("id", department.getId())
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println("Unable to update departments: " + ex);
+        }
     }
 
     @Override
     public void deleteDepartmentById(int id) {
-
+        try(Connection conn = DB.sql2o.open()){
+            String sql = "DELETE FROM departments WHERE id=:id";
+            conn.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println("Unable to delete department by ID: " + ex);
+        }
     }
 
     @Override
     public void deleteEmployeeFromDepartment(Department department, Employee employee) {
-
+        try(Connection conn = DB.sql2o.open()){
+            String sql = "DELETE from departments_users WHERE deptid = :departmentId AND userId = :employeeId";
+            conn.createQuery(sql)
+                    .addParameter("departmentId", department.getId())
+                    .addParameter("employeeId", employee.getId())
+                    .executeUpdate();
+            employee.setDepartment("None");
+            department.reduceEmployeeCount();
+            updateEmployeeCount(department);
+        } catch (Sql2oException ex){
+            System.out.println("Unable to delete from dept_users: " + ex);
+        }
     }
 
     @Override
-    public void deleteDepartmentNewsById(int departMentId, int newsId) {
-
+    public void deleteDepartmentNewsById(int departmentId, int newsId) {
+        try(Connection conn = DB.sql2o.open()){
+            String sql = "DELETE from departments_news WHERE deptid = :deptId AND newsid = :newsId";
+            conn.createQuery(sql)
+                    .addParameter("deptId", departmentId)
+                    .addParameter("newsId", newsId)
+                    .executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println("Unable to delete department news by id: " + ex);
+        }
     }
 
     @Override
     public void clearAll() {
-
+        try(Connection conn = DB.sql2o.open()){
+            String sql = "DELETE FROM departments";
+            conn.createQuery(sql).executeUpdate();
+        } catch (Sql2oException ex){
+            System.out.println("Unable to delete all departments: " + ex);
+        }
     }
 }

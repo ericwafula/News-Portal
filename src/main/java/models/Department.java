@@ -25,6 +25,14 @@ public class Department {
         return employee_count;
     }
 
+    public int increaseEmployeeCount(){
+        return this.employee_count++;
+    }
+
+    public int reduceEmployeeCount(){
+        return this.employee_count--;
+    }
+
     public int getId() {
         return id;
     }
