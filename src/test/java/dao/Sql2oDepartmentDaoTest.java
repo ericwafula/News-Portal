@@ -42,7 +42,16 @@ public class Sql2oDepartmentDaoTest {
     }
 
 
+//    @Test
+//    public void department_addEmployeesToDepartment() {
+//        Department department = createDepartment1();
 //
+//        Employee eric = createEmployee1();
+//        Employee becky = createEmployee2();
+//        departmentDao.addEmployeeToDepartment(department, eric);
+//        departmentDao.addEmployeeToDepartment(department, becky);
+//        assertEquals(eric.getId(), departmentDao.allDepartmentEmployees(department.getId()).get(0).getId());
+//    }
 
 
 
